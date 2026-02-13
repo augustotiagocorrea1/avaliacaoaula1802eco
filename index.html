@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SESI ECO - Maker | Desafios</title>
+
+  <style>
+    :root{
+      --roxo:#6b2a7a;
+      --roxo2:#7f3a8e;
+      --branco:#ffffff;
+      --cinza:#f3f4f6;
+      --texto:#1f2937;
+      --borda:#e5e7eb;
+      --verde:#22c55e;
+      --amarelo:#f59e0b;
+      --vermelho:#ef4444;
+      --azul:#3b82f6;
+    }
+
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--cinza);
+      color: var(--texto);
+    }
+
+    header{
+      background: var(--roxo);
+      color: var(--branco);
+      padding: 14px 16px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
+    header img{
+      height:70px;
+      border-radius:10px;
+      background:#fff;
+      padding:6px;
+    }
+
+    header .title{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+
+    header h1{
+      margin:0;
+      font-size:18px;
+      font-weight:800;
+      line-height:1.2;
+    }
+
+    header p{
+      margin:0;
+      font-size:13px;
+      opacity:0.95;
+      font-weight:500;
+    }
+
+    main{
+      max-width: 1100px;
+      margin: 18px auto;
+      padding: 0 14px 28px;
+    }
+
+    .card{
+      background:#fff;
+      border-radius:18px;
+      padding:16px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+      border:1px solid var(--borda);
+      margin-bottom:16px;
+    }
+
+    .card h2{
+      margin:0 0 12px 0;
+      font-size:18px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+
+    label{
+      font-size:13px;
+      font-weight:700;
+      display:block;
+      margin-bottom:6px;
+    }
+
+    input[type="text"], select{
+      width:100%;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--borda);
+      outline:none;
+      font-size:14px;
+    }
+
+    input[type="file"]{
+      width:100%;
+    }
+
+    button{
+      border:none;
+      padding:10px 14px;
+      border-radius:14px;
+      font-weight:800;
+      cursor:pointer;
+      font-size:14px;
+      transition: transform .08s ease;
+    }
+    button:active{ transform: scale(0.98); }
+
+    .btn-primary{
+      background: var(--roxo2);
+      color:#fff;
+    }
+    .btn-secondary{
+      background:#111827;
+      color:#fff;
+    }
+    .btn-danger{
+      background: var(--vermelho);
+      color:#fff;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--borda);
+    }
+
+    th, td{
+      padding:10px;
+      border-bottom:1px solid var(--borda);
+      text-align:center;
+      font-size:14px;
+    }
+
+    th{
+      background:#f8fafc;
+      font-size:13px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+
+    td.team-cell{
+      text-align:left;
+      font-weight:900;
+      width:220px;
+    }
+
+    .team-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .team-row img{
+      width:44px;
+      height:44px;
+      border-radius:12px;
+      object-fit:cover;
+      border:2px solid #fff;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+      background:#eee;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:900;
+      color:#fff;
+    }
+
+    .badge-A{ background: var(--verde); }
+    .badge-B{ background: var(--azul); }
+    .badge-C{ background: var(--amarelo); }
+    .badge-AA{ background: #111827; }
+
+    .page{
+      display:none;
+    }
+    .page.active{
+      display:block;
+    }
+
+    .hint{
+      font-size:13px;
+      opacity:0.85;
+      margin-top:8px;
+      line-height:1.35;
+    }
+
+    .result-box{
+      border-radius:18px;
+      padding:16px;
+      border:1px solid var(--borda);
+      background:#f9fafb;
+      margin-top:12px;
+    }
+
+    .result-box h3{
+      margin:0 0 10px 0;
+      font-size:18px;
+    }
+
+    .result-box p{
+      margin:0;
+      font-size:15px;
+      line-height:1.45;
+    }
+
+    .small{
+      font-size:12px;
+      opacity:0.8;
+      margin-top:8px;
+    }
+
+    .footer-note{
+      text-align:center;
+      font-size:12px;
+      opacity:0.7;
+      margin-top:14px;
+    }
+
+    @media (max-width: 820px){
+      .grid{ grid-template-columns: 1fr; }
+      header img{ height:60px; }
+      td.team-cell{ width:auto; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="maker-1000x265-copiar.jpg" alt="Maker SESI" />
+    <div class="title">
+      <h1>Centro de Inovação - Videira/SC - SESI ECO</h1>
+      <p>Maker Tecnologia e Robótica Kids e Teens</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- Página 1 -->
+    <section id="page-setup" class="page active">
+      <div class="card">
+        <h2>Cadastro das Equipes</h2>
+        <p class="hint">
+          Preencha o nome da equipe e anexe uma foto. Depois clique em <b>Adicionar Equipe</b>.
+        </p>
+
+        <div class="grid">
+          <div>
+            <label for="teamName">Nome da equipe</label>
+            <input id="teamName" type="text" placeholder="Ex: Robôs da Galáxia" />
+          </div>
+
+          <div>
+            <label for="teamPhoto">Foto da equipe</label>
+            <input id="teamPhoto" type="file" accept="image/*" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn-primary" onclick="addTeam()">Adicionar Equipe</button>
+          <button class="btn-secondary" onclick="goToChallenges()">Ir para Tabela de Missões</button>
+          <button class="btn-danger" onclick="clearAll()">Apagar Tudo</button>
+        </div>
+
+        <p class="small">Dica: os dados ficam salvos no navegador (não precisa internet).</p>
+      </div>
+
+      <div class="card">
+        <h2>Equipes cadastradas</h2>
+        <div id="teamsList"></div>
+      </div>
+    </section>
+
+    <!-- Página 2 -->
+    <section id="page-challenges" class="page">
+      <div class="card">
+        <h2>Tabela de Missões</h2>
+        <p class="hint">
+          Para cada missão selecione o conceito: <b>A</b>, <b>B</b>, <b>C</b> ou <b>AA</b>.
+        </p>
+
+        <div style="overflow:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Equipe</th>
+                <th>Missão 1</th>
+                <th>Missão 2</th>
+                <th>Missão 3</th>
+                <th>Desafio Final</th>
+              </tr>
+            </thead>
+            <tbody id="challengeTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="actions">
+          <button class="btn-secondary" onclick="backToSetup()">Voltar</button>
+          <button class="btn-primary" onclick="goToResults()">Ver Resultado Final</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Página 3 -->
+    <section id="page-results" class="page">
+      <div class="card">
+        <h2>Resultado Final</h2>
+        <p class="hint">
+          Aqui aparece a pontuação somada e o conceito final divertido para cada equipe.
+        </p>
+
+        <div id="resultsContainer"></div>
+
+        <div class="actions">
+          <button class="btn-secondary" onclick="backToChallenges()">Voltar para Tabela</button>
+          <button class="btn-danger" onclick="clearAll()">Apagar Tudo</button>
+        </div>
+
+        <div class="footer-note">
+          Desenvolvido para o SESI ECO - Maker | Kids e Teens
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "maker_teams_v1";
+
+    function loadTeams(){
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveTeams(teams){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(teams));
+    }
+
+    function renderTeamsList(){
+      const teams = loadTeams();
+      const container = document.getElementById("teamsList");
+
+      if(teams.length === 0){
+        container.innerHTML = "<p style='opacity:.75;'>Nenhuma equipe cadastrada ainda.</p>";
+        return;
+      }
+
+      let html = "<div style='display:flex; flex-wrap:wrap; gap:12px;'>";
+      teams.forEach((t, idx) => {
+        html += `
+          <div style="border:1px solid #e5e7eb; border-radius:16px; padding:12px; width:260px; background:#fafafa;">
+            <div style="display:flex; gap:10px; align-items:center;">
+              <img src="${t.photo || ''}" style="width:54px; height:54px; border-radius:14px; object-fit:cover; background:#eee;" />
+              <div>
+                <div style="font-weight:900;">${t.name}</div>
+                <div style="font-size:12px; opacity:.75;">Equipe #${idx+1}</div>
+              </div>
+            </div>
+            <div style="margin-top:10px;">
+              <button class="btn-danger" style="width:100%;" onclick="removeTeam(${idx})">Remover</button>
+            </div>
+          </div>
+        `;
+      });
+      html += "</div>";
+
+      container.innerHTML = html;
+    }
+
+    function removeTeam(index){
+      const teams = loadTeams();
+      teams.splice(index, 1);
+      saveTeams(teams);
+      renderTeamsList();
+    }
+
+    function addTeam(){
+      const nameInput = document.getElementById("teamName");
+      const fileInput = document.getElementById("teamPhoto");
+
+      const name = nameInput.value.trim();
+
+      if(!name){
+        alert("Digite o nome da equipe.");
+        return;
+      }
+
+      const teams = loadTeams();
+
+      const file = fileInput.files[0];
+      if(file){
+        const reader = new FileReader();
+        reader.onload = function(e){
+          teams.push({
+            name: name,
+            photo: e.target.result,
+            m1: "",
+            m2: "",
+            m3: "",
+            final: ""
+          });
+
+          saveTeams(teams);
+          nameInput.value = "";
+          fileInput.value = "";
+          renderTeamsList();
+        };
+        reader.readAsDataURL(file);
+      } else {
+        teams.push({
+          name: name,
+          photo: "",
+          m1: "",
+          m2: "",
+          m3: "",
+          final: ""
+        });
+
+        saveTeams(teams);
+        nameInput.value = "";
+        fileInput.value = "";
+        renderTeamsList();
+      }
+    }
+
+    function conceptSelect(value, onChange){
+      const options = ["", "A", "B", "C", "AA"];
+      let html = `<select onchange="${onChange}">`;
+      options.forEach(opt=>{
+        const selected = opt === value ? "selected" : "";
+        const label = opt === "" ? "—" : opt;
+        html += `<option value="${opt}" ${selected}>${label}</option>`;
+      });
+      html += "</select>";
+      return html;
+    }
+
+    function renderChallengeTable(){
+      const teams = loadTeams();
+      const tbody = document.getElementById("challengeTableBody");
+
+      if(teams.length === 0){
+        tbody.innerHTML = `<tr><td colspan="5" style="opacity:.75; text-align:center;">Nenhuma equipe cadastrada.</td></tr>`;
+        return;
+      }
+
+      let html = "";
+      teams.forEach((t, idx) => {
+        html += `
+          <tr>
+            <td class="team-cell">
+              <div class="team-row">
+                <img src="${t.photo || ''}" alt="foto equipe"/>
+                <div>${t.name}</div>
+              </div>
+            </td>
+            <td>${conceptSelect(t.m1, `updateConcept(${idx}, 'm1', this.value)`)}</td>
+            <td>${conceptSelect(t.m2, `updateConcept(${idx}, 'm2', this.value)`)}</td>
+            <td>${conceptSelect(t.m3, `updateConcept(${idx}, 'm3', this.value)`)}</td>
+            <td>${conceptSelect(t.final, `updateConcept(${idx}, 'final', this.value)`)}</td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = html;
+    }
+
+    function updateConcept(index, field, value){
+      const teams = loadTeams();
+      teams[index][field] = value;
+      saveTeams(teams);
+    }
+
+    function pointsFromConcept(c){
+      if(c === "A") return 10;
+      if(c === "B") return 8;
+      if(c === "C") return 6;
+      if(c === "AA") return 20;
+      return 0;
+    }
+
+    function funMessage(score){
+      if(score > 30){
+        return "🚀 <b>INCRÍVEIS!</b> Vocês foram uma equipe fora da curva! Mandaram muito bem nas missões e mostraram domínio total da robótica. Parabéns por encarar os desafios com coragem e inteligência!";
+      }
+      if(score > 20){
+        return "🔥 <b>DETERMINADOS E CRIATIVOS!</b> Vocês foram muito bem! A robótica é desafiadora, mas vocês mostraram foco, trabalho em equipe e ideias muito boas. Continuem assim — vocês têm potencial gigante para brilhar no mundo da programação e da tecnologia!";
+      }
+      return "💡 <b>NO CAMINHO CERTO!</b> Vocês foram determinados e criativos. A robótica é desafiadora e vocês estão construindo um futuro incrível. O estudo e a persistência serão sempre o alicerce de vocês — continuem focados e evoluindo!";
+    }
+
+    function badge(concept){
+      if(!concept) return "<span style='opacity:.5;'>—</span>";
+      return `<span class="badge badge-${concept}">${concept}</span>`;
+    }
+
+    function renderResults(){
+      const teams = loadTeams();
+      const container = document.getElementById("resultsContainer");
+
+      if(teams.length === 0){
+        container.innerHTML = "<p style='opacity:.75;'>Nenhuma equipe cadastrada.</p>";
+        return;
+      }
+
+      let html = "";
+      teams.forEach((t) => {
+        const total =
+          pointsFromConcept(t.m1) +
+          pointsFromConcept(t.m2) +
+          pointsFromConcept(t.m3) +
+          pointsFromConcept(t.final);
+
+        html += `
+          <div class="result-box">
+            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+              <img src="${t.photo || ''}" style="width:64px; height:64px; border-radius:16px; object-fit:cover; background:#eee; border:2px solid #fff; box-shadow:0 8px 18px rgba(0,0,0,.15);" />
+              <div style="flex:1;">
+                <h3 style="margin:0;">${t.name}</h3>
+                <div style="margin-top:6px; font-size:13px;">
+                  Missão 1: ${badge(t.m1)} &nbsp; 
+                  Missão 2: ${badge(t.m2)} &nbsp; 
+                  Missão 3: ${badge(t.m3)} &nbsp; 
+                  Final: ${badge(t.final)}
+                </div>
+                <div style="margin-top:8px; font-weight:900; font-size:14px;">
+                  Pontuação total: ${total} pontos
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px;">
+              <p>${funMessage(total)}</p>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function showPage(pageId){
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById(pageId).classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function goToChallenges(){
+      renderChallengeTable();
+      showPage("page-challenges");
+    }
+
+    function backToSetup(){
+      renderTeamsList();
+      showPage("page-setup");
+    }
+
+    function goToResults(){
+      renderResults();
+      showPage("page-results");
+    }
+
+    function backToChallenges(){
+      renderChallengeTable();
+      showPage("page-challenges");
+    }
+
+    function clearAll(){
+      if(confirm("Tem certeza que deseja apagar todas as equipes e resultados?")){
+        localStorage.removeItem(STORAGE_KEY);
+        renderTeamsList();
+        renderChallengeTable();
+        renderResults();
+        showPage("page-setup");
+      }
+    }
+
+    // Inicialização
+    renderTeamsList();
+  </script>
+</body>
+</html>
